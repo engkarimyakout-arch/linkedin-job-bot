@@ -1,4 +1,4 @@
-name: Run LinkedIn Bot
+name: Run LinkedIn Bot V2
 
 on:
   schedule:
