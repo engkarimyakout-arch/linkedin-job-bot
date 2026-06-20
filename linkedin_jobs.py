@@ -86,7 +86,19 @@ for job in jobs:
 📍 {job['location']}
 🔗 {job['link']}"""
 
-    send(msg)
+    def send(msg):
+    print("SENDING MESSAGE:")
+    print(msg)
+
+    url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
+
+    response = requests.post(
+        url,
+        json={"chat_id": CHAT_ID, "text": msg}
+    )
+
+    print("STATUS CODE:", response.status_code)
+    print("RESPONSE TEXT:", response.text)
     seen.add(job["id"])
 
 save_seen(seen)
