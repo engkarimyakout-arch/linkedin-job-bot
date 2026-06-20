@@ -1,4 +1,4 @@
-name: Telegram Test
+name: Telegram Test22
 
 on:
   workflow_dispatch:
