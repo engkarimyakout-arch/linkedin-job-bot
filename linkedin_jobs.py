@@ -88,7 +88,7 @@ for job in jobs:
 📍 {job['location']}
 🔗 {job['link']}"""
 
-    def send(msg):
+def send(msg):
     print("SENDING MESSAGE:")
     print(msg)
 
@@ -96,12 +96,14 @@ for job in jobs:
 
     response = requests.post(
         url,
-        json={"chat_id": CHAT_ID, "text": msg}
+        json={
+            "chat_id": CHAT_ID,
+            "text": msg
+        }
     )
 
     print("STATUS CODE:", response.status_code)
     print("RESPONSE TEXT:", response.text)
-    seen.add(job["id"])
 
 save_seen(seen)
 
