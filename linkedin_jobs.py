@@ -35,22 +35,35 @@ def send(msg):
 
 # TEMP DATA SOURCE (we will upgrade later if needed)
 def get_jobs():
-    return [
-        {
-            "id": "1",
-            "title": "Data Engineer",
-            "company": "Example Company",
-            "location": "Saudi Arabia",
-            "link": "https://linkedin.com/jobs/view/1"
-        },
-        {
-            "id": "2",
-            "title": "Power BI Developer",
-            "company": "ABC Corp",
-            "location": "UAE",
-            "link": "https://linkedin.com/jobs/view/2"
-        }
-    ]
+    import requests
+    from bs4 import BeautifulSoup
+
+    query = "Data Engineer OR Power BI OR Microsoft Fabric jobs in Saudi Arabia OR UAE"
+
+    url = f"https://www.google.com/search?q={query}&ibp=job"
+
+    headers = {
+        "User-Agent": "Mozilla/5.0"
+    }
+
+    response = requests.get(url, headers=headers)
+    soup = BeautifulSoup(response.text, "html.parser")
+
+    jobs = []
+
+    for g in soup.find_all("div"):
+        text = g.get_text(" ", strip=True)
+
+        if "Apply" in text and ("Saudi" in text or "UAE" in text or "Dubai" in text or "Riyadh" in text):
+            jobs.append({
+                "id": str(hash(text)),
+                "title": "Job Found",
+                "company": "Google Jobs",
+                "location": "KSA/UAE",
+                "link": "https://www.google.com/search?q=jobs"
+            })
+
+    return jobs[:5]
 
 seen = load_seen()
 jobs = get_jobs()
