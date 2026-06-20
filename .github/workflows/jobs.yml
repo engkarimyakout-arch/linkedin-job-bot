@@ -1,6 +1,8 @@
 name: Telegram Test22
 
 on:
+  schedule:
+    - cron: "*/15 * * * *"
   workflow_dispatch:
 
 jobs:
